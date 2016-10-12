@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title></title>
+
+
+<script type="text/javascript" src="./jfeed/jquery.js"></script>
+<script type="text/javascript" src="./jfeed/dist/jquery.jfeed.js"></script>
+
+<script type="text/javascript">
+
+jQuery(function() {
+
+    jQuery.getFeed({
+        url: 'jfeed/proxy.php?url=http://p2p.podcloud.fr/rss',
+        success: function(feed) {
+        
+            
+            
+            var html = '';
+            
+            for(var i = 0; i < feed.items.length && i < 5; i++) {
+            
+                var item = feed.items[i];
+                
+                html += '<h2>'
+                + '<a href="'
+                + item.link
+                + '">'
+                + item.title
+                + '</a>'
+                + '</h2>';
+                
+                html += '<div class="updated">'
+                + item.updated
+                + '</div>';
+                
+                html += '<div class="description">'
+                + item.description
+                + '</div>';
+				
+				html += '<div id="audio-container"><audio controls="" preload="none" width="640" height="30" src="'
+                + item.enclosure
+                + '" type="audio/mpeg"></audio></div>';
+				
+				html += '<div class="enclosurelink" ><a href="'
+                + item.enclosure
+                + '">'
+                + "Télécharger l'épisode"
+                + '</a></div>';
+            }
+            
+            jQuery('#result').append(html);
+        }    
+    });
+});
+
+</script>
+
+</head>
+<body>
+
+
+<div id="result" />
+
+
+
+</body>
+</html>
